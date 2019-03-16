@@ -102,6 +102,18 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
     "symfony/cache": {
         "version": "v4.2.4"
     },
@@ -157,6 +169,9 @@
             "./.env"
         ]
     },
+    "symfony/form": {
+        "version": "v4.2.4"
+    },
     "symfony/framework-bundle": {
         "version": "4.2",
         "recipe": {
@@ -182,6 +197,12 @@
     "symfony/http-kernel": {
         "version": "v4.2.4"
     },
+    "symfony/inflector": {
+        "version": "v4.2.4"
+    },
+    "symfony/intl": {
+        "version": "v4.2.4"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -191,13 +212,25 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/options-resolver": {
+        "version": "v4.2.4"
+    },
     "symfony/orm-pack": {
         "version": "v1.0.6"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.10.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"
     },
+    "symfony/polyfill-php72": {
+        "version": "v1.10.0"
+    },
     "symfony/process": {
+        "version": "v4.2.4"
+    },
+    "symfony/property-access": {
         "version": "v4.2.4"
     },
     "symfony/routing": {
@@ -218,6 +251,26 @@
     "symfony/stopwatch": {
         "version": "v4.2.4"
     },
+    "symfony/twig-bridge": {
+        "version": "v4.2.4"
+    },
+    "symfony/twig-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "369b5b29dc52b2c190002825ae7ec24ab6f962dd"
+        },
+        "files": [
+            "./config/packages/twig.yaml",
+            "./config/routes/dev/twig.yaml",
+            "./templates/base.html.twig"
+        ]
+    },
+    "symfony/var-dumper": {
+        "version": "v4.2.4"
+    },
     "symfony/var-exporter": {
         "version": "v4.2.4"
     },
@@ -232,6 +285,9 @@
     },
     "symfony/yaml": {
         "version": "v4.2.4"
+    },
+    "twig/twig": {
+        "version": "v2.7.2"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"
