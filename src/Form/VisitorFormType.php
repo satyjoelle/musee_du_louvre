@@ -11,8 +11,11 @@ namespace App\Form;
 use App\Entity\Visitor;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 
@@ -29,9 +32,13 @@ class VisitorFormType extends  AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('pays')
-            ->add('dateDeNaissance')
-            ->add('tarifReduit')
-            ->add('booking');
+            ->add('dateDeNaissance', BirthdayType::class,[
+                'placeholder' => ['day'=>'Jour','month'=>'Mois','year'=>'Année'],
+                'format'=>'dd MM yyy'
+            ])
+            ->add('tarifReduit', CheckboxType::class, [    'required'   => false,
+            ]);
+            //->add('booking');
     }
 
     /**
