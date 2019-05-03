@@ -70,8 +70,6 @@ class BookingController extends AbstractController
         }
 
 
-
-
         $form = $this->createForm(CollectionType::class, $visitor, ["entry_type" => VisitorFormType::class]);
 
        // dd($form->getgetData());die;
@@ -82,6 +80,8 @@ class BookingController extends AbstractController
             //dd($form->getData());
             $age =2019 - (int)$form->getData()[0]->getDateDeNaissance()->format('Y'); //recupere tous les données recupérer par le formulaire, le 1er formulaire
             $price = 0;
+
+
             if($form->getData()[0]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
                 $price = 10;
                 dd($price);
