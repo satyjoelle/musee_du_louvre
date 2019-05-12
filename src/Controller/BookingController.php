@@ -75,30 +75,40 @@ class BookingController extends AbstractController
        // dd($form->getgetData());die;
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+
+            function somme($age){
+                //$price = 0;
+                 if($age >= 4 && $age < 12){
+                     $price = 16 ;
+                     return $price;
+                 }elseif($age >= 12 && $age < 60){
+                     $price = 8;
+                     return $price;
+                 }elseif($age >= 60){
+                     $price = 12;
+                     return $price;
+                 }
+             }
+
+            
+             $total = 0;
+             for ($i = 0; $i < $quantite; $i++) {
+                if($form->getData()[$i]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
+                    $price = 10;
+                    //dd($price);
+                 $total += $price;
+                }else{ 
+                    $year  = 2019 - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
+                    //dd($year);
+                     $total += somme($year);
+                }
+                
+            }
+            dd($total);
+
             // dd($form->getData()[0]->getDateDeNaissance()->format('Y'));
 
-            //dd($form->getData());
-            $age =2019 - (int)$form->getData()[0]->getDateDeNaissance()->format('Y'); //recupere tous les données recupérer par le formulaire, le 1er formulaire
-            $price = 0;
-
-
-            if($form->getData()[0]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
-                $price = 10;
-                dd($price);
-
-            }else{
-                if($age >= 12){
-                    $price=16;
-                    dd($price);
-                }elseif ($age >= 4 && $age < 12){
-                    $price=8;
-                    dd($price);
-                }elseif ($age >= 60){
-                    $price=12;
-                    dd($price);
-                }
-            }
-
+            
         }
 
             return $this->render('booking/visitor.html.twig', array('form' => $form->createView()));

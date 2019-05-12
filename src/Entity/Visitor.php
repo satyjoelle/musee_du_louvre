@@ -27,7 +27,7 @@ class Visitor
     private $prenom;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $pays;
 
