@@ -75,14 +75,16 @@ class BookingController extends AbstractController
        // dd($form->getgetData());die;
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
-
-            function somme($age){
-                //$price = 0;
-                 if($age >= 4 && $age < 12){
-                     $price = 16 ;
+            // Fonction de récupération du prix en fonction de la date de naissance
+            function recup($age){
+                if($age >= 0 && $age <= 4){
+                    $price = 0 ;
                      return $price;
-                 }elseif($age >= 12 && $age < 60){
-                     $price = 8;
+                }elseif($age > 4 && $age <= 12){
+                     $price = 8 ;
+                     return $price;
+                 }elseif($age > 12 && $age < 60){
+                     $price = 16;
                      return $price;
                  }elseif($age >= 60){
                      $price = 12;
@@ -96,11 +98,11 @@ class BookingController extends AbstractController
                 if($form->getData()[$i]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
                     $price = 10;
                     //dd($price);
-                 $total += $price;
+                    $total += $price;
                 }else{ 
                     $year  = 2019 - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
                     //dd($year);
-                     $total += somme($year);
+                     $total += recup($year);
                 }
                 
             }
