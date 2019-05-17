@@ -30,7 +30,8 @@ class BookingController extends AbstractController
 
         $form = $this->createForm(BookingFormType::class, $booking);
 
-        //dump($request->request->get("quantite")); //handlerequest recupere les champs entrés par le visiteur
+        //handlerequest lis,  recupere hydraate les champs du formulaire
+        //avec le if on soumet le formulaire
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $booking = $form->getData();
@@ -38,19 +39,21 @@ class BookingController extends AbstractController
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
              $entityManager = $this->getDoctrine()->getManager();
+             //preparer la requete avant l'enregistrement
              $entityManager->persist($booking);
+             //execute la requete
              $entityManager->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); //get session sauvegarde l'objet booking
             $request->getSession()->set("booking", $booking);
-            //dump($request->getSession()->get("booking"));
-            return $this->redirectToRoute('visit');
+
+            return $this->redirectToRoute('visit'); //appelle la route en bas
 
 
         }
 
         return $this->render('booking/add.html.twig', [
-            'bookingForm' =>$form->createView()
+            'bookingForm' =>$form->createView() //affichage du formulaire avant la soumission sans le if
         ]);
 
 
@@ -69,10 +72,9 @@ class BookingController extends AbstractController
 
         }
 
-
         $form = $this->createForm(CollectionType::class, $visitor, ["entry_type" => VisitorFormType::class]);
 
-       // dd($form->getgetData());die;
+
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             // Fonction de récupération du prix en fonction de la date de naissance
@@ -92,31 +94,46 @@ class BookingController extends AbstractController
                  }
              }
 
-            
+
              $total = 0;
+            $donnees = array(array());
              for ($i = 0; $i < $quantite; $i++) {
+                 //recuperer le prix en fonction du tarif reduit
                 if($form->getData()[$i]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
                     $price = 10;
-                    //dd($price);
+                    $donnees[$i]['prix'] = $price;
+                    $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
+                    $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
                     $total += $price;
-                }else{ 
-                    $year  = 2019 - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
+                }else{  //recuperer le prix en fonction de l age
+                    $year  = date("Y") - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
                     //dd($year);
-                     $total += recup($year);
+                    $donnees[$i]['prix'] = recup($year);
+                    $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
+                    $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
+
+                    $total += recup($year); //retourne le prix qui fait age, function recup age
+
                 }
-                
+
+
             }
-            dd($total);
 
-            // dd($form->getData()[0]->getDateDeNaissance()->format('Y'));
+             return $this->render('booking/order/checkout.html.twig', ['donnees'=>$donnees, 'total'=>$total]);
 
-            
+
         }
 
+
+
             return $this->render('booking/visitor.html.twig', array('form' => $form->createView()));
+
 
     }
 
 
 
 }
+
+
+

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Musee du Louvre{% endblock %}
+
+{% block body %}
+    <div class="nav-space-checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="checkout-header">Récapitulatif de réservation</h1>
+                </div>
+                <br>
+                <div class="col-xs-12 col-sm-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="col-xs-6 active">Billets</th>
+                            <th class="col-xs-3 active text-center">Prix</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for donnee in donnees %}
+                            <tr>
+                                <th class="col-xs-6 checkout-product-name">{{ donnee.nom }} - {{ donnee.prenom }}</th>
+                                <td class="col-xs-3">{{ donnee.prix }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th class="col-xs-6 info">Total</th>
+                            <td class="col-xs-3 info checkout-total">{{ total }} €</td>
+                        </tr>
+
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <form action="/checkout" method="POST">
+                        <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_yL8RBz5KivRpOkv2Hm8g2SyJ00oSfMLfiJ"
+                                data-amount="{{ total * 100}}"
+                                data-name="Demo Site"
+                                data-description="Widget"
+                                data-image="{{ asset ('images/logo.png') }}"
+                                data-locale="auto"
+                                data-currency="eur">
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
