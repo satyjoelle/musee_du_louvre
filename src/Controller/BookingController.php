@@ -15,11 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
-
+use Stripe\Stripe;
 
 
 class BookingController extends AbstractController
 {
+
+
     /**
      * @Route("/add", name="book")
      */
@@ -96,15 +98,19 @@ class BookingController extends AbstractController
 
 
              $total = 0;
+
+            // set and get session attributes
             $donnees = array(array());
              for ($i = 0; $i < $quantite; $i++) {
                  //recuperer le prix en fonction du tarif reduit
-                if($form->getData()[$i]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
+                if($form->getData()[$i]->gephptTarifReduit() == true){ //get data recuperer les donnees du formulaire
                     $price = 10;
                     $donnees[$i]['prix'] = $price;
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
                     $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
                     $total += $price;
+                    $request->getSession()->set("total", $total);
+
                 }else{  //recuperer le prix en fonction de l age
                     $year  = date("Y") - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
                     //dd($year);
@@ -113,7 +119,7 @@ class BookingController extends AbstractController
                     $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
 
                     $total += recup($year); //retourne le prix qui fait age, function recup age
-
+                    $request->getSession()->set("total", $total);
                 }
 
 
@@ -131,8 +137,37 @@ class BookingController extends AbstractController
 
     }
 
+    /**
+     *
+     * @Route("/checkout", name="order_checkout")
+     */
+    public function checkoutAction(Request $request)
+    {
 
+        if ($request->isMethod('POST')){
 
+            $token = $request->get('stripeToken');
+            dump($request->getSession()->get("total"));
+
+            \Stripe\Stripe::setApiKey('sk_test_KtGoClctxPWcK6RVvqfiCaG000PsHa5oQ8');
+
+            $charge = \Stripe\Charge::create([
+                'amount' => $request->getSession()->get("total")*100,
+                'currency' => 'eur',
+                'source' => $token,
+                'receipt_email' => 'faveurextra@gmail.com',
+            ]);
+            $request->getSession()->clear();
+            $this->addFlash('sucess', 'Order Complete! Yay!');
+
+            return $this->redirectToRoute('book');
+        }
+
+        return $this->render('booking/order/checkout.html.twig', array(
+
+        ));
+
+    }
 }
 
 
