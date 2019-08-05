@@ -96,14 +96,13 @@ class BookingController extends AbstractController
                  }
              }
 
-
              $total = 0;
 
             // set and get session attributes
             $donnees = array(array());
              for ($i = 0; $i < $quantite; $i++) {
                  //recuperer le prix en fonction du tarif reduit
-                if($form->getData()[$i]->gephptTarifReduit() == true){ //get data recuperer les donnees du formulaire
+                if($form->getData()[$i]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
                     $price = 10;
                     $donnees[$i]['prix'] = $price;
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
@@ -163,9 +162,8 @@ class BookingController extends AbstractController
             return $this->redirectToRoute('book');
         }
 
-        return $this->render('booking/order/checkout.html.twig', array(
 
-        ));
+
 
     }
 }
