@@ -22,9 +22,7 @@ class SendController extends AbstractController
 
 {
 
-    /**
-     * @Route("/send", name="sendpdf")
-     */
+
     public function index()
     {
         // Configure Dompdf according to your needs
