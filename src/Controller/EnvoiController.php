@@ -15,7 +15,7 @@ class EnvoiController extends AbstractController
 {
 
     /**
-     * @Route("/envoi", name="envoi")
+     * @Route("/sendEmail", name="send_email")
      */
     public function sendEmail($name='',\Swift_Mailer $mailer)
     {
@@ -33,7 +33,7 @@ class EnvoiController extends AbstractController
 
         $message = (new \Swift_Message('Hello Email'))
             ->setFrom('faveurextra@gmail.com')
-            ->setTo('faveurextra@gmail.com')
+            ->setTo('eMail')
             ->setBody(
                 $this->renderView(
                 // templates/emails/registration.html.twig
@@ -55,6 +55,9 @@ class EnvoiController extends AbstractController
         ;
 
         $mailer->send($message);
+
+
+
 
         return $this->render('emails/envoi.html.twig', []);
     }

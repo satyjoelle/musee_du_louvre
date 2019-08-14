@@ -22,6 +22,7 @@ class BookingController extends AbstractController
 {
 
 
+
     /**
      * @Route("/add", name="book")
      */
@@ -30,13 +31,19 @@ class BookingController extends AbstractController
     {
         $booking = new Booking();
 
+
         $form = $this->createForm(BookingFormType::class, $booking);
 
-        //handlerequest lis,  recupere hydraate les champs du formulaire
+        //handlerequest lis,  recupere hydrate les champs du formulaire
         //avec le if on soumet le formulaire
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $booking = $form->getData();
+
+
+            //dd($booking->getEMail());
+            //$this->emailTo = $booking->getEmail();
+
 
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
@@ -107,6 +114,8 @@ class BookingController extends AbstractController
                     $donnees[$i]['prix'] = $price;
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
                     $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
+                    $donnees[$i]['code'] = MD5($donnees[$i]['nom'].$donnees[$i]['prenom']);
+
                     $total += $price;
                     $request->getSession()->set("total", $total);
 
@@ -116,24 +125,24 @@ class BookingController extends AbstractController
                     $donnees[$i]['prix'] = recup($year);
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
                     $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
+                    $donnees[$i]['code'] = MD5($donnees[$i]['nom'].$donnees[$i]['prenom']);
+
 
                     $total += recup($year); //retourne le prix qui fait age, function recup age
+
                     $request->getSession()->set("total", $total);
                 }
 
 
             }
 
-             return $this->render('booking/order/checkout.html.twig', ['donnees'=>$donnees, 'total'=>$total]);
-
-
+            dump($donnees);
+            $request->getSession()->set("don", $donnees);
+            $_SESSION['donnees'] = $donnees;
+            return $this->render('booking/order/checkout.html.twig', ['donnees'=>$donnees, 'total'=>$total]);
         }
 
-
-
             return $this->render('booking/visitor.html.twig', array('form' => $form->createView()));
-
-
     }
 
     /**
@@ -146,7 +155,7 @@ class BookingController extends AbstractController
         if ($request->isMethod('POST')){
 
             $token = $request->get('stripeToken');
-            dump($request->getSession()->get("total"));
+            //dump($request->getSession()->get("total"));
 
             \Stripe\Stripe::setApiKey('sk_test_KtGoClctxPWcK6RVvqfiCaG000PsHa5oQ8');
 
@@ -156,15 +165,46 @@ class BookingController extends AbstractController
                 'source' => $token,
                 'receipt_email' => 'faveurextra@gmail.com',
             ]);
-            $request->getSession()->clear();
-            $this->addFlash('sucess', 'Order Complete! Yay!');
+            //$request->getSession()->clear();
+            $this->addFlash('success', 'Order Complete! Yay!');
 
-            return $this->redirectToRoute('book');
+            return $this->redirectToRoute('envoi');
         }
 
 
 
 
+    }
+
+    /**
+     * @Route("/envoi", name="envoi")
+     */
+    public function sendEmail( Request $request, $name='',\Swift_Mailer $mailer)
+    {
+
+        //dd($_SESSION['donnees']);
+        $jour_visite = $request->getSession()->get('booking')->getJourDeVisite();
+       $emailTo = $request->getSession()->get("booking")->getEmail();
+
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('faveurextra@gmail.com')
+            ->setTo($emailTo)
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    ['jour_visite'=>$jour_visite, 'name' => $name, 'donnees'=>$_SESSION['donnees']]
+                ),
+                'text/html'
+            );
+
+        //getSession pour recuperer les valeurs d une variable hors des fonctions ou elles ont ete declarées
+
+        $mailer->send($message);
+
+
+
+        return $this->render('emails/envoi.html.twig', []);
     }
 }
 

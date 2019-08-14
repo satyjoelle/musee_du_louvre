@@ -1,11 +1,18 @@
 {# templates/emails/registration.html.twig #}
-<h3>You did it! You registered!</h3>
+<h3>Votre réservation</h3>
 
-Hi {{ name }}! You're successfully registered.
 
-{# example, assuming you have a route named "login" #}
--
-Thanks!
+{% for donnee in donnees %}
 
-{# Makes an absolute URL to the /images/logo.png file #}
-<img src="{{ absolute_url(asset('images/logo.png')) }}">
+    <div class="jumbotron">
+        <img src="{{ absolute_url(asset('assets/images/logo.jpg')) }}">
+        <h1>Musée du Louvre </h1>
+        <h3>Jour de la visite: {{ jour_visite|date('d/m/Y H:i', timezone="Europe/Paris") }}</h3>
+        <h3>Code: {{ donnee.code }}</h3>
+        <p> Nom: {{ donnee.nom }}</p>
+        <p> Prix: {{ donnee.prix }} </p>
+
+    </div>
+    <hr>
+
+{% endfor %}
