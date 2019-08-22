@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="020602a0-4900-40f7-838b-be119dd9a7ed" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/musee_du_louvre.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/musee_du_louvre.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Booking.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-    </list>
+    <list default="true" id="020602a0-4900-40f7-838b-be119dd9a7ed" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -422,7 +413,7 @@
       <workItem from="1565817937174" duration="3866000" />
       <workItem from="1565901392416" duration="641000" />
       <workItem from="1565903856083" duration="4495000" />
-      <workItem from="1566506833461" duration="682000" />
+      <workItem from="1566506833461" duration="1479000" />
     </task>
     <task id="LOCAL-00001" summary="entity">
       <created>1552406042320</created>
@@ -501,11 +492,18 @@
       <option name="project" value="LOCAL" />
       <updated>1565819500935</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="tarif, checkout&#10;mail">
+      <created>1566509496102</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1566509496102</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197080000" />
+    <option name="totallyTimeSpent" value="197877000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
