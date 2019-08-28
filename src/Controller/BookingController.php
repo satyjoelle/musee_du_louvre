@@ -87,22 +87,6 @@ class BookingController extends AbstractController
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             // Fonction de récupération du prix en fonction de la date de naissance
-            function recup($age){
-                if($age >= 0 && $age <= 4){
-                    $price = 0 ;
-                     return $price;
-                }elseif($age > 4 && $age <= 12){
-                     $price = 8 ;
-                     return $price;
-                 }elseif($age > 12 && $age < 60){
-                     $price = 16;
-                     return $price;
-                 }elseif($age >= 60){
-                     $price = 12;
-                     return $price;
-                 }
-             }
-
              $total = 0;
 
             // set and get session attributes
@@ -122,13 +106,13 @@ class BookingController extends AbstractController
                 }else{  //recuperer le prix en fonction de l age
                     $year  = date("Y") - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
                     //dd($year);
-                    $donnees[$i]['prix'] = recup($year);
+                    $donnees[$i]['prix'] = $this->recup($year);
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
                     $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
                     $donnees[$i]['code'] = MD5($donnees[$i]['nom'].$donnees[$i]['prenom']);
 
 
-                    $total += recup($year); //retourne le prix qui fait age, function recup age
+                    $total += $this->recup($year); //retourne le prix qui fait age, function recup age
 
                     $request->getSession()->set("total", $total);
                 }
@@ -136,13 +120,29 @@ class BookingController extends AbstractController
 
             }
 
-            dump($donnees);
+            //dump($donnees);
             $request->getSession()->set("don", $donnees);
             $_SESSION['donnees'] = $donnees;
             return $this->render('booking/order/checkout.html.twig', ['donnees'=>$donnees, 'total'=>$total]);
         }
 
             return $this->render('booking/visitor.html.twig', array('form' => $form->createView()));
+    }
+
+    function recup($age){
+        if($age >= 0 && $age <= 4){
+            $price = 0 ;
+            return $price;
+        }elseif($age > 4 && $age <= 12){
+            $price = 8 ;
+            return $price;
+        }elseif($age > 12 && $age < 60){
+            $price = 16;
+            return $price;
+        }elseif($age >= 60){
+            $price = 12;
+            return $price;
+        }
     }
 
     /**
