@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: faveu
- * Date: 13/03/2019
- * Time: 01:10
- */
+
 
 namespace App\Controller;
 use App\Entity\Booking;
@@ -40,20 +35,18 @@ class BookingController extends AbstractController
 
             $booking = $form->getData();
 
-
             //dd($booking->getEMail());
             //$this->emailTo = $booking->getEmail();
-
-
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
+            //ecrire le tableau
+            // ...entitymanager fait le lien entre les entités et la bdd
              $entityManager = $this->getDoctrine()->getManager();
-             //preparer la requete avant l'enregistrement
+             //preparer la requete avant l'enregistrement, ajoute l'objet manipulé dans l'Unit of Work
              $entityManager->persist($booking);
              //execute la requete
              $entityManager->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); //get session sauvegarde l'objet booking
+             //get session sauvegarde l'objet booking
+            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); 
             $request->getSession()->set("booking", $booking);
 
             return $this->redirectToRoute('visit'); //appelle la route en bas
@@ -93,7 +86,7 @@ class BookingController extends AbstractController
             $donnees = array(array());
              for ($i = 0; $i < $quantite; $i++) {
                  //recuperer le prix en fonction du tarif reduit
-                if($form->getData()[$i]->getTarifReduit() == true){ //get data recuperer les donnees du formulaire
+                if($form->getData()[$i]->getTarifReduit() == true){ //get data recupere les donnees du formulaire
                     $price = 10;
                     $donnees[$i]['prix'] = $price;
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
@@ -112,7 +105,9 @@ class BookingController extends AbstractController
                     $donnees[$i]['code'] = MD5($donnees[$i]['nom'].$donnees[$i]['prenom']);
 
 
-                    $total += $this->recup($year); //retourne le prix qui fait age, function recup age
+                    $total += $this->recup($year); //retourne le prix qui fait age, function recup age en bas
+
+                    //set("total")?signification
 
                     $request->getSession()->set("total", $total);
                 }

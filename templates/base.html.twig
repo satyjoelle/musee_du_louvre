@@ -5,7 +5,8 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -14,12 +15,67 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
     <div class="container">
+        
+       
+      
         {% block body %}{% endblock %}
     </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        <script>
+            $( function() {
+              $( ".datepicker" ).datepicker({ 
+                dateFormat: "dd-mm-yy",
+                minDate: new Date(),
+                startDate: "2016-08-19 10:00",
+                //daysOfWeekDisabled: [7],
+                autoclose: true,  
+                beforeShowDay: noSunday 
+                
+                           
+              });
+
+        var array = ["03-14","03-15","03-16"];
+        function noSunday(date){ 
+          var day = date.getDay(); 
+          var string = jQuery.datepicker.formatDate('mm-dd', date);
+            return [(day > 0), '']; 
+      };     
+ });
+        
+// Disable a list of dates
+var disabledDays = ["1-01-2020", "4-13-2020", "5-01-2020"];
+
+function disableAllTheseDays(date) {
+    var m = date.getMonth(),
+        d = date.getDate(),
+        y = date.getFullYear();
+    for (i = 0; i < disabledDays.length; i++) {
+        if ($.inArray((m + 1) + '-' + d + '-' + y, disabledDays) != -1) {
+            return [false];
+        }
+    }
+    return [true];
+};
+$.datepicker({
+    dateFormat: 'mm-dd-yy',
+    
+});
+ 
+
+            
+
+
+
+
+
+
+            
+            </script>
+        {% endblock %}
     </body>
 </html>

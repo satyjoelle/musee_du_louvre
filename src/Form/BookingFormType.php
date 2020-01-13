@@ -23,7 +23,11 @@ class BookingFormType extends AbstractType
     {
        $builder
           ->add('jourDeVisite', DateType::class,[
+            'html5' => false,
+            'attr' => ['class' => 'datepicker'],
               'widget' =>'single_text',
+              
+              
               ])
 
            ->add('typeDeBillet', ChoiceType::class, [

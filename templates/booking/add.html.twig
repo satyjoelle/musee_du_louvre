@@ -9,7 +9,7 @@
 <div class="well">
     {{ form_start(bookingForm) }}
 
-        {{ form_row(bookingForm.jourDeVisite, {'attr':{'placeholder':''}}) }}
+        {{ form_row(bookingForm.jourDeVisite, {'attr': {'class':'datepicker'}}) }}
         {{ form_errors(bookingForm.jourDeVisite) }}
 
         {{ form_row(bookingForm.typeDeBillet) }}
