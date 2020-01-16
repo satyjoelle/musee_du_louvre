@@ -18,11 +18,12 @@ class BookingController extends AbstractController
 
 
 
+    
+
     /**
      * @Route("/add", name="book")
      */
     public function addAction(Request $request)
-
     {
         $booking = new Booking();
 
@@ -33,24 +34,17 @@ class BookingController extends AbstractController
         //avec le if on soumet le formulaire
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
+        
             $booking = $form->getData();
-
-            //dd($booking->getEMail());
-            //$this->emailTo = $booking->getEmail();
-            //ecrire le tableau
-            // ...entitymanager fait le lien entre les entités et la bdd
              $entityManager = $this->getDoctrine()->getManager();
-             //preparer la requete avant l'enregistrement, ajoute l'objet manipulé dans l'Unit of Work
+            
              $entityManager->persist($booking);
-             //execute la requete
+            
              $entityManager->flush();
-
-             //get session sauvegarde l'objet booking
             $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); 
             $request->getSession()->set("booking", $booking);
 
             return $this->redirectToRoute('visit'); //appelle la route en bas
-
 
         }
 
@@ -82,7 +76,7 @@ class BookingController extends AbstractController
             // Fonction de récupération du prix en fonction de la date de naissance
              $total = 0;
 
-            // set and get session attributes
+            
             $donnees = array(array());
              for ($i = 0; $i < $quantite; $i++) {
                  //recuperer le prix en fonction du tarif reduit
@@ -98,7 +92,7 @@ class BookingController extends AbstractController
 
                 }else{  //recuperer le prix en fonction de l age
                     $year  = date("Y") - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
-                    //dd($year);
+                    
                     $donnees[$i]['prix'] = $this->recup($year);
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
                     $donnees[$i]['prenom'] = $form->getData()[$i]->getPrenom();
@@ -107,15 +101,13 @@ class BookingController extends AbstractController
 
                     $total += $this->recup($year); //retourne le prix qui fait age, function recup age en bas
 
-                    //set("total")?signification
-
                     $request->getSession()->set("total", $total);
                 }
 
 
             }
 
-            //dump($donnees);
+          
             $request->getSession()->set("don", $donnees);
             $_SESSION['donnees'] = $donnees;
             return $this->render('booking/order/checkout.html.twig', ['donnees'=>$donnees, 'total'=>$total]);
@@ -150,7 +142,7 @@ class BookingController extends AbstractController
         if ($request->isMethod('POST')){
 
             $token = $request->get('stripeToken');
-            //dump($request->getSession()->get("total"));
+            
 
             \Stripe\Stripe::setApiKey('sk_test_KtGoClctxPWcK6RVvqfiCaG000PsHa5oQ8');
 
@@ -160,7 +152,7 @@ class BookingController extends AbstractController
                 'source' => $token,
                 'receipt_email' => 'faveurextra@gmail.com',
             ]);
-            //$request->getSession()->clear();
+            
             $this->addFlash('success', 'Order Complete! Yay!');
 
             return $this->redirectToRoute('envoi');
@@ -177,7 +169,7 @@ class BookingController extends AbstractController
     public function sendEmail( Request $request, $name='',\Swift_Mailer $mailer)
     {
 
-        //dd($_SESSION['donnees']);
+        
         $jour_visite = $request->getSession()->get('booking')->getJourDeVisite();
        $emailTo = $request->getSession()->get("booking")->getEmail();
 
@@ -194,7 +186,6 @@ class BookingController extends AbstractController
             );
 
         //getSession pour recuperer les valeurs d une variable hors des fonctions ou elles ont ete declarées
-
         $mailer->send($message);
 
 

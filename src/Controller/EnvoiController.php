@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: faveu
- * Date: 12/08/2019
- * Time: 00:33
- */
+
 
 namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,19 +14,9 @@ class EnvoiController extends AbstractController
      */
     public function sendEmail($name='',\Swift_Mailer $mailer)
     {
-       /* $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('adimicool@gmail.com')
-            ->setTo('faveurextra@gmail.com')
-            ->setBody('You should see me from the profiler!')
-        ;
+       
 
-        $mailer->send($message);
-
-        // ...
-        return $this->render('emails/envoi.html.twig', []);
-       */
-
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message('Musée du Louvre'))
             ->setFrom('faveurextra@gmail.com')
             ->setTo('eMail')
             ->setBody(
@@ -43,15 +28,7 @@ class EnvoiController extends AbstractController
                 'text/html'
             )
 
-            // you can remove the following code if you don't define a text version for your emails
-           /* ->addPart(
-                $this->renderView(
-                // templates/emails/registration.txt.twig
-                    'emails/registration.txt.twig',
-                    ['name' => $name]
-                ),
-                'text/plain'
-            )*/
+            
         ;
 
         $mailer->send($message);

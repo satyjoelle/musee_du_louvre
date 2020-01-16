@@ -37,6 +37,8 @@ class VisitorFormType extends  AbstractType
                 'format'=>'dd MM yyy'
             ])
             ->add('tarifReduit', CheckboxType::class, [    'required'   => false,
+            'label' => 'Tarif réduit de 10 euros 
+            - Tarif accordé sous certaines conditions (étudiant, employé du musée, d’un service du Ministère de la Culture, militaire…)',
             ]);
             //->add('booking');
     }

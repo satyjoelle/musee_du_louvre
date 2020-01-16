@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienvenue sur la Billeterie du louvre {% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -16,65 +19,67 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        {% block stylesheets %}{% endblock %}
+        
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
+         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        
+        {% endblock %}
+
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="asset('css/responsive.css')" rel="stylesheet">
     </head>
     <body>
-    <div class="container">
+
+
+
         
-       
-      
+    <div class="container">
         {% block body %}{% endblock %}
     </div>
         {% block javascripts %}
+        
         <script>
             $( function() {
               $( ".datepicker" ).datepicker({ 
-                dateFormat: "dd-mm-yy",
-                minDate: new Date(),
-                startDate: "2016-08-19 10:00",
-                //daysOfWeekDisabled: [7],
-                autoclose: true,  
-                beforeShowDay: noSunday 
+                  dateFormat: "yy-mm-dd",
+                  //langage: "fr",       
+                 autoclose: true,  
+                 beforeShowDay: unavailable
                 
                            
               });
-
-        var array = ["03-14","03-15","03-16"];
-        function noSunday(date){ 
-          var day = date.getDay(); 
-          var string = jQuery.datepicker.formatDate('mm-dd', date);
-            return [(day > 0), '']; 
-      };     
+  
  });
-        
-// Disable a list of dates
-var disabledDays = ["1-01-2020", "4-13-2020", "5-01-2020"];
 
-function disableAllTheseDays(date) {
-    var m = date.getMonth(),
-        d = date.getDate(),
-        y = date.getFullYear();
-    for (i = 0; i < disabledDays.length; i++) {
-        if ($.inArray((m + 1) + '-' + d + '-' + y, disabledDays) != -1) {
-            return [false];
+      var unavailableDates = ["13-4-2020", "1-5-2020", "8-5-2020","21-5-2020", "1-6-2020","14-7-2020","15-8-2020","11-11-2020","1-6-2020","25-12-2020" ];
+
+        function unavailable(date) {
+            dmy = date.getDate() + "/" + (date.getMonth() + 1 + "/" + date.getFullYear());
+
+            for (i = 0; i < unavailableDates.length; i++) {
+                if ($.inArray(dmy, unavailableDates) >= 0) {
+                    return [false, "", "Unavailable"];
+                } 
+            }
+                return disabledays(date);
+            
         }
-    }
-    return [true];
-};
-$.datepicker({
-    dateFormat: 'mm-dd-yy',
-    
-});
- 
 
-            
+        //désactive les dimanches
+
+        function disabledays(date) {
+            var day = date.getDay();
+            return [(day != 0) , ''];
 
 
+        }
 
-
-
-
-            
+   
             </script>
         {% endblock %}
     </body>

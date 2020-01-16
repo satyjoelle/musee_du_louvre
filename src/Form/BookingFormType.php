@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: faveu
- * Date: 13/03/2019
- * Time: 00:01
- */
+
 
 namespace App\Form;
 
@@ -23,15 +18,20 @@ class BookingFormType extends AbstractType
     {
        $builder
           ->add('jourDeVisite', DateType::class,[
-            'html5' => false,
-            'attr' => ['class' => 'datepicker'],
-              'widget' =>'single_text',
-              
-              
-              ])
+                    'html5' => false,
+                    'attr' => ['class' => 'datepicker'],
+                    'widget' =>'single_text',
+                    'format' => 'dd-mm-yyyy',
+                    'format' => 'dd-MM-yyyy',
+                    
+                   'format' => 'yyyy-MM-dd'
+                
+
+                ]
+            )
 
            ->add('typeDeBillet', ChoiceType::class, [
-               'choices'  => ['billet journée' => true, 'billet demi journée' => true],
+               'choices'  => ['billet journée' => 0, 'billet demi journée (à partir de 14h)' => 1],
            ])
 
            ->add('quantite' )
