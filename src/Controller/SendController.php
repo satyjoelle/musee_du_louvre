@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Booking;
-//use App\Form\BookingFormType;
-//use App\Form\VisitorFormType;
 
-//use App\Entity\Visitor;
 use App\Form\VisitorFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -37,7 +37,7 @@ class BookingController extends AbstractController
         
             $booking = $form->getData();
              $entityManager = $this->getDoctrine()->getManager();
-            
+            // dump($booking);
              $entityManager->persist($booking);
             
              $entityManager->flush();

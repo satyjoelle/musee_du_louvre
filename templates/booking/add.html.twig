@@ -1,9 +1,9 @@
-{% extends'base.html.twig' %}
-{% form_theme bookingForm 'bootstrap_4_layout.html.twig' %}
+{% extends'base_bristol.html.twig' %}
+
 
 
 {% block body %}
-
+<div class="container">
 <h3>Billeterie</h3>
 
 <div class="well">
@@ -24,6 +24,7 @@
 
     {{ form_end(bookingForm) }}
 
+</div>
 </div>
 
 {% endblock %}

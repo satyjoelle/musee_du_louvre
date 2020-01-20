@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>BIENVENUE à la Billeterie du Louvre </title>
+<!-- Stylesheets -->
+<!--
+<link href="{{ asset('css/bootstrap.css" rel="stylesheet')}}">
+<link href="{{ asset('css/revolution-slider.css" rel="stylesheet ')}}">
+<link href="{{ asset('css/style.css" rel="stylesheet')}}">
+-->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/revolution-slider.css" rel="stylesheet ">
+<link href="css/style.css" rel="stylesheet">
+<!--Favicon-->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link href="css/responsive.css" rel="stylesheet">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+
+{% block body %}{% endblock %}
+{% block javascripts %}
+        
+        <script>
+            $( function() {
+              $.datepicker.setDefaults($.datepicker.regional["fr-FR"]);
+              $( ".datepicker" ).datepicker({ 
+                  dateFormat: "yy-mm-dd",
+                  langage: "fr",       
+                 autoclose: true,  
+                 beforeShowDay: unavailable,
+                altField: "#datepicker",
+                closeText: 'Fermer',
+                prevText: 'Précédent',
+                nextText: 'Suivant',
+                currentText: 'Aujourd\'hui',
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['Dim', 'Lun', 'Mar', 'Mer', 'Jun', 'Ven', 'Sam'],
+                weekHeader: 'Sem'
+                
+                           
+              });
+  
+ });
+
+      var unavailableDates = ["13/4/2020", "1/5/2020", "8/5/2020","21/5/2020", "1/6/2020","14/7/2020","15/8/2020","11/11/2020","1/6/2020","25/12/2020" ];
+
+        function unavailable(date) {
+            dmy = date.getDate() + "/" + (date.getMonth() + 1 + "/" + date.getFullYear());
+
+            for (i = 0; i < unavailableDates.length; i++) {
+                if ($.inArray(dmy, unavailableDates) >= 0) {
+                    return [false, "", "Unavailable"];
+                } 
+            }
+                return disabledays(date);
+            
+        }
+
+        //désactive les dimanches
+
+        function disabledays(date) {
+            var day = date.getDay();
+            return [(day != 0) , ''];
+
+
+        }
+
+   
+            </script>
+        {% endblock %}
+</body>
+</html>

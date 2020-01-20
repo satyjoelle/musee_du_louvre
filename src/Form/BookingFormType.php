@@ -21,9 +21,6 @@ class BookingFormType extends AbstractType
                     'html5' => false,
                     'attr' => ['class' => 'datepicker'],
                     'widget' =>'single_text',
-                    'format' => 'dd-mm-yyyy',
-                    'format' => 'dd-MM-yyyy',
-                    
                    'format' => 'yyyy-MM-dd'
                 
 
