@@ -39,6 +39,7 @@ class BookingController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             //$result = $entityManager->getRepository(Booking::class)->sumQuantity(date('Y-m-d'));
 
+<<<<<<< HEAD
             
             $booking = $form->getData();
             //echo $booking->getJourDeVisite();
@@ -46,6 +47,13 @@ class BookingController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $result = $entityManager->getRepository(Booking::class)->sumQuantity($booking->getJourDeVisite());
             //echo $result; exit;
+=======
+        
+            $booking = $form->getData();
+             $entityManager = $this->getDoctrine()->getManager();
+            // dump($booking);
+             $entityManager->persist($booking);
+>>>>>>> c8f26a7e083dd9fea9416f7f092bd0ada058ccee
             
             if($result <= 1000){
                 //dump($booking);
