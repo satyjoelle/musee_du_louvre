@@ -1,4 +1,6 @@
 <?php
+
+namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,12 +13,11 @@ Class BristolController  extends AbstractController
 {
 
 /**
- * @Route("/home")
+ * @Route("/", name="home")
  */
     public function home()
     {
-        return new Response("home",  Response::HTTP_OK,
-            ['content-type' => 'text/plain']);
+        return $this->render('bristol/index.html.twig');
     }
 
 

@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
@@ -21,9 +23,6 @@ class BookingFormType extends AbstractType
                     'html5' => false,
                     'attr' => ['class' => 'datepicker'],
                     'widget' =>'single_text',
-                    'format' => 'dd-mm-yyyy',
-                    'format' => 'dd-MM-yyyy',
-                    
                    'format' => 'yyyy-MM-dd'
                 
 
@@ -34,7 +33,14 @@ class BookingFormType extends AbstractType
                'choices'  => ['billet journée' => 0, 'billet demi journée (à partir de 14h)' => 1],
            ])
 
-           ->add('quantite' )
+           /*
+           ->add('date_created', DateType::class,[
+
+           'data' => new \DateTime('now')
+
+        ])*/
+           ->add('quantite' , IntegerType::class, [
+            'attr' => ['min'  => 1 , 'max' => '1000']])
 
            ->add('eMail');
     }

@@ -1,14 +1,20 @@
-{% extends'base.html.twig' %}
-{% form_theme bookingForm 'bootstrap_4_layout.html.twig' %}
+{% extends'base_bristol.html.twig' %}
+
 
 
 {% block body %}
-
+<div class="container">
 <h3>Billeterie</h3>
 
+{% for message in app.flashes('d') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
 <div class="well">
     {{ form_start(bookingForm) }}
 
+       
         {{ form_row(bookingForm.jourDeVisite, {'attr': {'class':'datepicker'}}) }}
         {{ form_errors(bookingForm.jourDeVisite) }}
 
@@ -20,10 +26,13 @@
 
         {{ form_row(bookingForm.eMail, {'attr':{'placeholder':'Votre email svp'}}) }}
         {{ form_errors(bookingForm.eMail) }}
+       
         <input class="btn btn-primary" type="submit">
+       
 
     {{ form_end(bookingForm) }}
 
+</div>
 </div>
 
 {% endblock %}

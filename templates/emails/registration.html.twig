@@ -6,6 +6,8 @@
 
     <div class="jumbotron">
         <img src="{{ absolute_url(asset('assets/images/logo.jpg')) }}">
+
+ 
         <h1>Musée du Louvre </h1>
         <h3>Jour de la visite: {{ jour_visite|date('d/m/Y H:i', timezone="Europe/Paris") }}</h3>
         <h3>Code: {{ donnee.code }}</h3>

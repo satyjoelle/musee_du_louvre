@@ -16,15 +16,17 @@ use Stripe\Stripe;
 class BookingController extends AbstractController
 {
 
-
-
-    
-
     /**
      * @Route("/add", name="book")
      */
     public function addAction(Request $request)
     {
+        
+        
+        //tester pour voir si c'est inférieur à 1000
+
+        
+        
         $booking = new Booking();
 
 
@@ -33,21 +35,33 @@ class BookingController extends AbstractController
         //handlerequest lis,  recupere hydrate les champs du formulaire
         //avec le if on soumet le formulaire
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+           
+            $entityManager = $this->getDoctrine()->getManager();
+            //$result = $entityManager->getRepository(Booking::class)->sumQuantity(date('Y-m-d'));
 
-        
+            
             $booking = $form->getData();
-             $entityManager = $this->getDoctrine()->getManager();
+            //echo $booking->getJourDeVisite();
+           // dd($booking->getJourDeVisite());
+            $entityManager = $this->getDoctrine()->getManager();
+            $result = $entityManager->getRepository(Booking::class)->sumQuantity($booking->getJourDeVisite());
+            //echo $result; exit;
             
-             $entityManager->persist($booking);
-            
-             $entityManager->flush();
-            $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); 
-            $request->getSession()->set("booking", $booking);
+            if($result <= 1000){
+                //dump($booking);
+                $entityManager->persist($booking);
+                
+                $entityManager->flush();
+                $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); 
+                $request->getSession()->set("booking", $booking);
 
-            return $this->redirectToRoute('visit'); //appelle la route en bas
+                return $this->redirectToRoute('visit'); //appelle la route en bas
+
+            }else{
+                $this->addFlash('d', 'Nombre de reservations atteint, veuillez réserver un autre jour !');
+            }
 
         }
-
         return $this->render('booking/add.html.twig', [
             'bookingForm' =>$form->createView() //affichage du formulaire avant la soumission sans le if
         ]);

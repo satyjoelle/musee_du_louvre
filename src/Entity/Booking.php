@@ -45,6 +45,8 @@ class Booking
      */
     private $visitors;
 
+   
+
     public function __construct()
     {
         $this->visitors = new ArrayCollection();
@@ -137,4 +139,18 @@ class Booking
     {
         return (string) $this->getId();
     }
+
+    /*
+    public function getDateCreated(): ?\DateTimeInterface
+    {
+        return $this->date_created;
+    }
+
+    public function setDateCreated(\DateTimeInterface $date_created): self
+    {
+        $this->date_created = $date_created;
+
+        return $this;
+    }
+    */
 }

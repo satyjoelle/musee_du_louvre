@@ -1,31 +1,8 @@
-{% extends'base.html.twig' %}
-{% form_theme bookingForm 'bootstrap_4_layout.html.twig' %}
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>BIENVENUE à la Billeterie du Louvre </title>
-<!-- Stylesheets -->
-<link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/revolution-slider.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-
-<!--Favicon-->
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-<link rel="icon" href="images/favicon.ico" type="image/x-icon">
-<!-- Responsive -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<link href="css/responsive.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-<script src="js/respond.js"></script>
-</head>
+{% extends'base_bristol.html.twig' %}
 
 
 {% block body %}
-   
-<body>
+
 <div class="page-wrapper">
 
     <!-- Preloader -->
@@ -34,7 +11,31 @@
    	<!-- Main Header-->
     <header class="main-header">
 		
-   		
+   		<!--div class="header-top">
+        	<div class="auto-container clearfix">
+            	<!--Top Left-->
+            	<!--<div class="top-left pull-left">
+                    <div class="social-links">
+                        <a href="#"><span class="fa fa-facebook-f"></span></a>
+                        <a href="#"><span class="fa fa-twitter"></span></a>
+                        <a href="#"><span class="fa fa-linkedin"></span></a>
+                        <a href="#"><span class="fa fa-instagram"></span></a>
+                        <a href="#"><span class="fa fa-vimeo"></span></a>
+                    </div>
+                </div>
+                
+                <!--Top Right-->
+            	<!--<div class="top-right pull-right">
+               		<!--Links Nav-->
+                	<!--<ul class="links-nav">
+                        <li><a href="#">FAQ’S</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">English</a></li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </!--div>
    	
     	<!--Header-Upper-->
         <div class="header-upper">
@@ -96,16 +97,72 @@
                         </div> 
 
                        <!---- <div class="navbar-collapse collapse clearfix">
-                            
+                            <ul class="navigation clearfix">
+                                <li class="dropdown"><a href="#">Home</a>
+                                    <ul>
+                                        <li><a href="index.html">Homepage One</a></li>
+                                        <li><a href="index-2.html">Homepage Two</a></li>
+                                        <li><a href="index-3.html">Homepage Three</a></li>
+                                        <li class="dropdown"><a href="#">Headers Style</a>
+                                            <ul>
+                                                <li><a href="index.html">Header Style One</a></li>
+                                                <li><a href="index-2.html">Header Style Two</a></li>
+                                                <li><a href="index-3.html">Header Style Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+								<li class="current"><a href="about-us.html">About Us</a></li>
+                                <li class="dropdown"><a href="#">Services</a>
+                                	<ul>
+                                        <li><a href="services.html">Services</a></li>
+                                        <li><a href="services-single.html">Security Consulting</a></li>
+                                        <li><a href="services-single.html">Investigations</a></li>
+                                        <li><a href="services-single.html">Defense Training</a></li>
+                                        <li><a href="services-single.html">Close Protections</a></li>
+                                        <li><a href="services-single.html">Private Security</a></li>
+                                        <li><a href="services-single.html">Guard House</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Gallery</a>
+                                    <ul>
+                                        <li><a href="gallery.html">Gallery</a></li>
+                                        <li><a href="gallery-single.html">Gallery Single</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Blog</a>
+                                	<ul>
+                                        <li><a href="blog-grid.html">Blog Grid</a></li>
+                                        <li><a href="blog-list.html">Blog List</a></li>
+                                        <li><a href="blog-single.html">Blog Single</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Pages</a>
+                                	<ul>
+                                        <li><a href="pricing.html">Pricing</a></li>
+                                        <li><a href="error-page.html">404 Page</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- Main Menu End-->
 
-                	<!--<div class="outer-btn"><a href="contact.html" class="theme-btn consultation">BILLETERIE</a></div>
+                	<div class="outer-btn"><a href="{{path('book')}}" class="theme-btn consultation">BILLETERIE</a></div>
                 	
-           
+              
+                </div>
+            </div>
+        </div>
 
 		<!--Sticky Header-->
         <div class="sticky-header">
         	<div class="auto-container clearfix">
-            	
+            	<!--Logo-->
+            	<!--<div class="logo pull-left">
+                	<a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="Bristol"></a>
+                </div>
 
                 <!--Right Col-->
                 <div class="right-col pull-right">
@@ -120,7 +177,57 @@
                             </button>
                         </div>
 
-                       
+                        <!--<div class="navbar-collapse collapse clearfix">
+                            <ul class="navigation clearfix">
+                                <li class="dropdown"><a href="#">Home</a>
+                                    <ul>
+                                        <li><a href="index.html">Homepage One</a></li>
+                                        <li><a href="index-2.html">Homepage Two</a></li>
+                                        <li><a href="index-3.html">Homepage Three</a></li>
+                                        <li class="dropdown"><a href="#">Headers Style</a>
+                                            <ul>
+                                                <li><a href="index.html">Header Style One</a></li>
+                                                <li><a href="index-2.html">Header Style Two</a></li>
+                                                <li><a href="index-3.html">Header Style Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+								<li class="current"><a href="about-us.html">About Us</a></li>
+                                <li class="dropdown"><a href="#">Services</a>
+                                	<ul>
+                                        <li><a href="services.html">Services</a></li>
+                                        <li><a href="services-single.html">Security Consulting</a></li>
+                                        <li><a href="services-single.html">Investigations</a></li>
+                                        <li><a href="services-single.html">Defense Training</a></li>
+                                        <li><a href="services-single.html">Close Protections</a></li>
+                                        <li><a href="services-single.html">Private Security</a></li>
+                                        <li><a href="services-single.html">Guard House</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Gallery</a>
+                                    <ul>
+                                        <li><a href="gallery.html">Gallery</a></li>
+                                        <li><a href="gallery-single.html">Gallery Single</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Blog</a>
+                                	<ul>
+                                        <li><a href="blog-grid.html">Blog Grid</a></li>
+                                        <li><a href="blog-list.html">Blog List</a></li>
+                                        <li><a href="blog-single.html">Blog Single</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#">Pages</a>
+                                	<ul>
+                                        <li><a href="pricing.html">Pricing</a></li>
+                                        <li><a href="error-page.html">404 Page</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </nav><!-- Main Menu End-->
                 </div>
 
             </div>
@@ -131,7 +238,7 @@
     <!--End Main Header -->
    
     <!--Page Title-->
-    <section class="page-title" "background-image:url"{{ asset('images/background/2.jpg' ) }}"">
+    <section class="page-title" style="background-image:url(images/background/2.jpg);">
     	<div class="auto-container">
         	<div class="inner-box">
                 <h1>BIENVENUE A LA BILLETERIE DU MUSEE LOUVRE </h1>
@@ -163,12 +270,36 @@
                         <div class="fact-counter">
                         	<div class="clearfix">
                         
-                                
+                                <!--Column-->
+                                <!--<div class="inner-column light-bg counter-column wow fadeIn">
+                                    <div class="inner">
+                                    	<div class="icon-box"><span class="icon flaticon-close"></span></div>
+                                        <div class="count-outer">
+                                            <span class="count-text" data-speed="4000" data-stop="3500">  </span>
+                                        </div>
+                                        <h4 class="counter-title">Guards</h4>
+                                    </div>
+                                </div>
+                        
+                                <!--Column-->
+                                <!--<div class="inner-column counter-column wow fadeIn">
+                                    <div class="inner">
+                                    	<div class="icon-box"><span class="icon flaticon-badge-with-ribbons"></span></div>
+                                        <div class="count-outer">
+                                            <span class="count-text" data-speed="3000" data-stop="48">0</span>
+                                        </div>
+                                        <h4 class="counter-title">Awards</h4>
+                                    </div>
+                                </div>
                         
                                 <!--Column-->
                                 <div class="inner-column counter-column wow fadeIn">
                                     <div class="inner">
-                                    	
+                                    	<!--<div class="icon-box"><span class="icon flaticon-crosshair"></span></div>
+                                        <!--<div class="count-outer">
+                                            <span class="count-text" data-speed="2000" data-stop="35">0</span>
+                                        </div>-->
+                                        <!--<h4 class="counter-title">Branches</h4>-->
 
                                         
                                     </div>
@@ -183,7 +314,7 @@
                 <div class="column col-md-6 col-sm-12 col-xs-12">
                 	<div class="video-box">
                     	<figure class="image">
-                        	<img src="{{asset('images/resource/video-image1.jpg) }}" alt="">
+                        	<img src="images/resource/video-image1.jpg" alt="">
                         </figure>
                         <a href="https://www.youtube.com/watch?v=V9vw2TGc06Q" class="lightbox-image overlay-box">
                         	<span class="flaticon-arrows-2"></span>
@@ -215,7 +346,7 @@
                         <div class="text">à partir de 4 ans jusqu'à 12 ans : 8 euros</div>
                         <div class="text">Gratuit pour les moins de 4ans</div>
                          
-                       <a class="read-more" href="services-single.html">Read More <span class="icon flaticon-right-arrow"></span></a>
+                       <!---- <a class="read-more" href="services-single.html">Read More <span class="icon flaticon-right-arrow"></span></a>-->
                     </div>
                 </div>
 
@@ -618,5 +749,6 @@
 <script src="js/owl.js"></script>
 <script src="js/wow.js"></script>
 <script src="js/script.js"></script>
-</body>
-</html>
+
+
+{% endblock %}

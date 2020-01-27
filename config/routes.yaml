@@ -1,3 +1,8 @@
-add:
+# config/routes.yaml
+home:
     path: /
-    controller: App\Controller\BookingController::add
+    # the controller value has the format 'controller_class::method_name'
+    controller: App\Controller\BristolController::home
+#add:
+#   path: /add
+#   controller: App\Controller\BookingController::add

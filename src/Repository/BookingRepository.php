@@ -47,4 +47,23 @@ class BookingRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function sumQuantity($date)
+    {
+
+       //SELECT sum(quantite) FROM `booking` WHERE date_created = "2020-01-20"
+      /* $dql = "SELECT SUM(e.amount) AS balance FROM Bank\Entities\Entry e " .
+      "WHERE e.account = ?1";
+
+       $balance = $em->createQuery($dql)
+             ->setParameter(1, $myAccountId)
+             ->getSingleScalarResult(); */
+
+       return $this->createQueryBuilder('b')
+           ->where('b.jour_de_visite = :date')
+           ->setParameter('date', $date)
+           ->select('sum(b.quantite) as totalbillets ')
+           ->getQuery()
+           ->getSingleScalarResult()
+       ;
+   }
 }
