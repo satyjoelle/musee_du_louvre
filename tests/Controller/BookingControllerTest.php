@@ -20,12 +20,6 @@ class BookingControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-       /* $crawler = $client->request('GET', '/add');
-
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('html:contains("Hello World")')->count()
-        );*/
 
 
     }

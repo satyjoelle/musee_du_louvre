@@ -127,7 +127,7 @@ class Booking
     {
         if ($this->visitors->contains($visitor)) {
             $this->visitors->removeElement($visitor);
-            // set the owning side to null (unless already changed)
+          
             if ($visitor->getBooking() === $this) {
                 $visitor->setBooking(null);
             }
@@ -140,17 +140,5 @@ class Booking
         return (string) $this->getId();
     }
 
-    /*
-    public function getDateCreated(): ?\DateTimeInterface
-    {
-        return $this->date_created;
-    }
-
-    public function setDateCreated(\DateTimeInterface $date_created): self
-    {
-        $this->date_created = $date_created;
-
-        return $this;
-    }
-    */
+   
 }

@@ -33,12 +33,7 @@ class BookingFormType extends AbstractType
                'choices'  => ['billet journée' => 0, 'billet demi journée (à partir de 14h)' => 1],
            ])
 
-           /*
-           ->add('date_created', DateType::class,[
-
-           'data' => new \DateTime('now')
-
-        ])*/
+          
            ->add('quantite' , IntegerType::class, [
             'attr' => ['min'  => 1 , 'max' => '1000']])
 

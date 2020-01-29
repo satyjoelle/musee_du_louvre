@@ -21,49 +21,31 @@ class BookingController extends AbstractController
      */
     public function addAction(Request $request)
     {
-        
-        
-        //tester pour voir si c'est inférieur à 1000
-
-        
-        
+            
         $booking = new Booking();
 
-
         $form = $this->createForm(BookingFormType::class, $booking);
-
-        //handlerequest lis,  recupere hydrate les champs du formulaire
-        //avec le if on soumet le formulaire
+        
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
            
             $entityManager = $this->getDoctrine()->getManager();
-            //$result = $entityManager->getRepository(Booking::class)->sumQuantity(date('Y-m-d'));
-
-<<<<<<< HEAD
-            
+           
+            //rajouter le service 
             $booking = $form->getData();
-            //echo $booking->getJourDeVisite();
-           // dd($booking->getJourDeVisite());
             $entityManager = $this->getDoctrine()->getManager();
             $result = $entityManager->getRepository(Booking::class)->sumQuantity($booking->getJourDeVisite());
-            //echo $result; exit;
-=======
-        
-            $booking = $form->getData();
-             $entityManager = $this->getDoctrine()->getManager();
-            // dump($booking);
-             $entityManager->persist($booking);
->>>>>>> c8f26a7e083dd9fea9416f7f092bd0ada058ccee
+           
+            $entityManager->persist($booking);
             
             if($result <= 1000){
-                //dump($booking);
+               
                 $entityManager->persist($booking);
                 
                 $entityManager->flush();
                 $request->getSession()->getFlashBag()->add('notice', 'Commande bien enregsitrée.'); 
                 $request->getSession()->set("booking", $booking);
 
-                return $this->redirectToRoute('visit'); //appelle la route en bas
+                return $this->redirectToRoute('visit'); 
 
             }else{
                 $this->addFlash('d', 'Nombre de reservations atteint, veuillez réserver un autre jour !');
@@ -71,7 +53,7 @@ class BookingController extends AbstractController
 
         }
         return $this->render('booking/add.html.twig', [
-            'bookingForm' =>$form->createView() //affichage du formulaire avant la soumission sans le if
+            'bookingForm' =>$form->createView() 
         ]);
 
 
@@ -95,14 +77,14 @@ class BookingController extends AbstractController
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
-            // Fonction de récupération du prix en fonction de la date de naissance
+
              $total = 0;
 
             
             $donnees = array(array());
              for ($i = 0; $i < $quantite; $i++) {
-                 //recuperer le prix en fonction du tarif reduit
-                if($form->getData()[$i]->getTarifReduit() == true){ //get data recupere les donnees du formulaire
+                 
+                if($form->getData()[$i]->getTarifReduit() == true){ 
                     $price = 10;
                     $donnees[$i]['prix'] = $price;
                     $donnees[$i]['nom'] = $form->getData()[$i]->getNom();
@@ -112,7 +94,7 @@ class BookingController extends AbstractController
                     $total += $price;
                     $request->getSession()->set("total", $total);
 
-                }else{  //recuperer le prix en fonction de l age
+                }else{ 
                     $year  = date("Y") - (int)$form->getData()[$i]->getDateDeNaissance()->format('Y');
                     
                     $donnees[$i]['prix'] = $this->recup($year);
@@ -121,7 +103,7 @@ class BookingController extends AbstractController
                     $donnees[$i]['code'] = MD5($donnees[$i]['nom'].$donnees[$i]['prenom']);
 
 
-                    $total += $this->recup($year); //retourne le prix qui fait age, function recup age en bas
+                    $total += $this->recup($year); 
 
                     $request->getSession()->set("total", $total);
                 }
@@ -138,7 +120,7 @@ class BookingController extends AbstractController
             return $this->render('booking/visitor.html.twig', array('form' => $form->createView()));
     }
 
-    function recup($age){
+    public function recup($age){
         if($age >= 0 && $age <= 4){
             $price = 0 ;
             return $price;
@@ -200,14 +182,13 @@ class BookingController extends AbstractController
             ->setTo($emailTo)
             ->setBody(
                 $this->renderView(
-                // templates/emails/registration.html.twig
+                
                     'emails/registration.html.twig',
                     ['jour_visite'=>$jour_visite, 'name' => $name, 'donnees'=>$_SESSION['donnees']]
                 ),
                 'text/html'
             );
 
-        //getSession pour recuperer les valeurs d une variable hors des fonctions ou elles ont ete declarées
         $mailer->send($message);
 
 
