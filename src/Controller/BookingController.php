@@ -2,6 +2,9 @@
 
 
 namespace App\Controller;
+use Symfony\Component\HttpFoundation\RequestStack;
+use App\Entity\Services;
+use App\Entity\Services\HourBillet;
 use App\Entity\Booking;
 use App\Entity\Visitor;
 use App\Form\BookingFormType;
@@ -31,11 +34,37 @@ class BookingController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
            
             //rajouter le service 
+            $request = $this->requestStack->getCurrentRequest();
             $booking = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
             $result = $entityManager->getRepository(Booking::class)->sumQuantity($booking->getJourDeVisite());
-           
+
             $entityManager->persist($booking);
+
+
+            //récupération du jour de visite 
+            $day = $jour_visite->getDay();
+
+            //test si un billet est acheté le même jour au dessus de 14h
+            foreach ($type_de_billet as $nbillet => $type_de_billet)
+
+            //recuperation du type de billet
+            $type_de_billet = $reservation->getTypeDeBillet();
+            
+            $hourBillet = $this->RevervHourBillet->hourBillet($type_de_billet, $jour_de_visite);
+
+           if($hourBillet == 'notHourBillet')
+
+                {
+                  
+                    $session->getFlashBag()->add('hourBillet', 'Votre billet '.($nbillet+1).' n\'est pas valide. 
+                    Vous ne pouvez commandé de billet "journée" au-dessus de 14 heures.');
+
+                    
+                return;
+                }
+
+            
             
             if($result <= 1000){
                

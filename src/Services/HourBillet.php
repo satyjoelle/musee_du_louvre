@@ -5,7 +5,7 @@ use DateTime;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 
-class HourBillet
+class ReservHourBillet
 
 {
 
@@ -34,7 +34,7 @@ class HourBillet
                     date_default_timezone_get('Europe/Paris');
                     $hour = date('H');
 
-                    //teste pour le billet journée
+                    //test pour le billet journée
                     if ($hour >=14 && $duration ==1)
                     {
                     // Si l'heure est supérieure à 14 h et le type de billet est journée (1) => Erreur
